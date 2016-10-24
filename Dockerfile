@@ -2,6 +2,8 @@ FROM golang
 MAINTAINER ndrouin
 
 RUN mkdir /go/src/project
+RUN apt-get update -y
+RUN apt-get install vim -y
 WORKDIR /go/src/project
 
 RUN go get -u github.com/kataras/iris/iris
