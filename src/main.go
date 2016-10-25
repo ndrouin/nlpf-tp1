@@ -7,8 +7,13 @@ import (
 
 func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
-  iris.Get("/", newUser)
+  iris.Get("/", accueil)
+  iris.Get("/newUser", newUser)
   iris.Listen(":80")
+}
+
+func accueil(ctx *iris.Context) {
+  ctx.Render("accueil.html", nil)
 }
 
 func newUser(ctx *iris.Context) {
