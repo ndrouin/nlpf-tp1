@@ -2,11 +2,12 @@ package main
 
 import "github.com/kataras/iris"
 
-func main(){
+func main() {
 
-  iris.Get("/", func(ctx *iris.Context){
-    ctx.Write("Hello, %s", "World!")
-  })
-
+  iris.Get("/", newUser)
   iris.Listen(":80")
+}
+
+func newUser(ctx *iris.Context) {
+  ctx.MustRender("html/new_user.html")
 }
