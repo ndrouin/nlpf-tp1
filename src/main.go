@@ -17,8 +17,8 @@ func main() {
 
 func accueil(ctx *iris.Context) {
 
-  ctx.MustRender("accueil.html", struct{ Name string }{Name: "iris1"}) 
-  ctx.MustRender("accueil.html", struct{ Name string }{Name: "iris2"})
+  ctx.Render("accueil.html", struct { Name string }{ Name: "iris1" }) 
+  ctx.Render("accueil.html", struct { Name string }{ Name: "iris2" })
 }
 
 func newUser(ctx *iris.Context) {
