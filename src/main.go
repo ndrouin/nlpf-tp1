@@ -9,5 +9,5 @@ func main() {
 }
 
 func newUser(ctx *iris.Context) {
-  ctx.MustRender("html/new_user.html")
+  ctx.MustRender("new_user.html", anyBindingStruct{})
 }
