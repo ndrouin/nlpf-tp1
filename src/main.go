@@ -17,9 +17,9 @@ func main() {
 
 func accueil(ctx *iris.Context) {
 
-ctx.Render("accueil_projects_display.html", map[string]interface{}{"Title": "LES PROJECTS" , "Name": "Projet 1" } ) 
+ctx.Render("accueil_project_display.html", struct { Name string }{ Name: "Projet 1"}) 
   
-
+ctx.Render("accueil_project_display.html", struct { Name string }{ Name: "Projet 2" }, iris.RenderOptions{"layout": iris.NoLayout})
 }
 
 func newUser(ctx *iris.Context) {
