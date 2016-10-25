@@ -1,6 +1,9 @@
 package main
 
-import "github.com/kataras/iris"
+import (
+  "github.com/kataras/iris"
+  "github.com/kataras/go-template/html"
+)
 
 func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
