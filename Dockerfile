@@ -3,6 +3,12 @@ MAINTAINER ndrouin
 
 RUN mkdir /go/src/project
 
+#install vim
+RUN apt-get update -y
+RUN apt-get install vim -y
+ADD colors /etc/vim/colors
+ADD vimrc.local /etc/vim
+
 #install iris framework
 WORKDIR /go/src/project
 
