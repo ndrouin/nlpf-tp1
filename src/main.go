@@ -17,7 +17,8 @@ func main() {
 
 func accueil(ctx *iris.Context) {
 
-ctx.Render("accueil/accueil_project_display.html", struct { Title string }{Title:"LES PROJECTS"}, struct {Name string}{Name:"Projet 1"} ) 
+ctx.Render("accueil/accueil_project_display.html", map[string]interface{"Title":
+"LES PROJECTS", "Name": "Projet 1"} ) 
   
 ctx.Render("accueil/accueil_project_display.html", struct { Name string }{
 Name:"Projet 2" }, iris.RenderOptions{"layout": iris.NoLayout})
