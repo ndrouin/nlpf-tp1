@@ -18,7 +18,7 @@ func main() {
 func accueil(ctx *iris.Context) {
 
 ctx.Render("accueil/accueil_project_display.html", struct { Name string }{ Name:
-"iris1"},iris.RenderOptions{"layout":"layouts/accueil_layout.html") 
+"iris1"},iris.RenderOptions{"layout":"layouts/accueil_layout.html"}) 
   
 ctx.Render("accueil/accueil_project_display.html", struct { Name string }{ Name: "iris2" }, iris.RenderOptions{"layout": iris.NoLayout})
 }
