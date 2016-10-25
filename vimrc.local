@@ -1,0 +1,57 @@
+"no compatibility with vi
+set nocompatible
+
+"displqy number line
+set number
+
+"activate indent
+filetype plugin indent on
+
+"activate syntax color
+syntax on
+
+"max 80 characters
+set colorcolumn=81
+
+"display matching brackets
+set showmatch
+
+"display cursorline
+set cursorline
+
+"indent
+set tabstop =2
+set shiftwidth =2
+set softtabstop =2
+set expandtab
+set smarttab
+
+"mouse activation
+set mouse =a
+
+"backspace activation
+set backspace=indent,eol,start
+
+"whitespaces
+highlight Whitespaces ctermbg=green ctermfg=white
+match Whitespaces /^\s* \s*\|\s\+$/
+
+"history commands
+set history=100
+
+"search
+set hlsearch
+set incsearch
+set ignorecase
+
+"colorscheme
+colorscheme ir_black
+
+"display trailing whitespaces
+set listchars=eol:$,tab:__,trail:~,extends:>,precedes:<
+
+"keybinds to move between viewports
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
