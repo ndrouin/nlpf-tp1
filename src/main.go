@@ -17,9 +17,12 @@ func main() {
 
 func accueil(ctx *iris.Context) {
 
-ctx.Render("accueil_project_display.html", struct { Project string }{ Project: "Projet 1"}) 
+
+ctx.Render("Accueil/accueil_title.html", nil)
+
+ctx.Render("Accueil/accueil_projects.html", struct { Project string }{ Project: "Projet 1"}) 
   
-ctx.Render("accueil_project_display.html", struct { Project string }{ Project: "Projet 2" }, iris.RenderOptions{"layout": iris.NoLayout})
+ctx.Render("Accueil/accueil_projects.html", struct { Project string }{ Project: "Projet 2" }, iris.RenderOptions{"layout": iris.NoLayout})
 }
 
 func newUser(ctx *iris.Context) {
