@@ -1,8 +1,10 @@
 package model
 
 import (
- _ "github.com/go-sql-driver/mysql"
- "github.com/go-xorm/xorm"
+  _ "github.com/go-sql-driver/mysql"
+  "github.com/go-xorm/xorm"
+  "crypto/sha256"
+  "encoding/hex"
 )
 
 type User struct {
@@ -23,6 +25,11 @@ func InitModel() {
 func Registration(email string, password string) {
   user := new(User)
   user.Email = email
-  user.Password = password
+  user.Password = crypt(password)
   engine.Insert(user)
+}
+
+func crypt(str string) string {
+  h:= sha256.Sum256([]byte(str))
+  return hex.EncodeToString(h[:])
 }
