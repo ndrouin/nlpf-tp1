@@ -5,7 +5,6 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
-  "fmt"
 )
 
 
@@ -14,6 +13,7 @@ func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
   iris.Get("/", accueil)
   iris.Get("/newUser", newUser)
+  iris.Get("/connexion", connexion)
   iris.Post("/registration", registration)
   iris.Listen(":80")
 }
@@ -31,14 +31,11 @@ project5 := []string{"TEST5", "16/09/2019", "Ceci est la descriptionn de mon pro
 
 
 projects := [][]string{project1, project2, project3, project4, project5}
-fmt.Println(projects)
 //Affichage du tite de la page d'accueil"
 ctx.Render("Accueil/accueil_title.html", nil)
 
-fmt.Println("c tipart")
 
 for _,c:= range projects {
-fmt.Println(projects)
 ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
 "Money":c[3]}, iris.RenderOptions{"layout": iris.NoLayout})}
 }
@@ -46,6 +43,12 @@ ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects": c
 func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
 }
+
+func connexion(ctx *iris.Context) {
+  ctx.Render("connexion.html", nil)
+}
+
+
 
 func registration(ctx *iris.Context) {
   //Get variables from form
