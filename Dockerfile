@@ -1,5 +1,6 @@
 FROM golang
 MAINTAINER ndrouin
+ENV LANG fr_FR.UTF-8
 
 RUN mkdir /go/src/project
 

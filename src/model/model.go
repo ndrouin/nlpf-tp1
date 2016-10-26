@@ -10,10 +10,19 @@ type User struct {
       Password  string
 }
 
+var engine *xorm.Engine
+var err error
+
 func InitModel() {
-  var err error
-  var engine *xorm.Engine
   engine, err = xorm.NewEngine("mysql", "root:@/easywebsite")
-  err = engine.Sync(new(User))
+  engine.Sync(new(User))
   _ = err
+}
+
+//add a new user in the DB
+func Registration(email string, password string) {
+  user := new(User)
+  user.Email = email
+  user.Password = password
+  engine.Insert(user)
 }
