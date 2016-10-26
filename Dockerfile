@@ -23,10 +23,12 @@ RUN git clone https://github.com/ndrouin/nlpf-tp1.git
 
 #install mariadb
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
-RUN systemctl enable mysql 
 
 #install xorm
 RUN go get github.com/go-xorm/xorm
 RUN go get github.com/go-sql-driver/mysql
+
+#start mysql service
+CMD service mysql start; echo "create database easywebsite" | mysql; /bin/bash 
 
 EXPOSE 80
