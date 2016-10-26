@@ -23,7 +23,7 @@ RUN git clone https://github.com/ndrouin/nlpf-tp1.git
 
 #install mariadb
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
-RUN service mysql start
+RUN systemctl enable mysql 
 
 #install xorm
 RUN go get github.com/go-xorm/xorm
