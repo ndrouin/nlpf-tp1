@@ -1,11 +1,13 @@
 package model
 
 import (
- _ "github.com/go-sql-driver/mysql"
- "github.com/go-xorm/xorm"
+  _ "github.com/go-sql-driver/mysql"
+  "github.com/go-xorm/xorm"
 )
 
 type User struct {
+      Surname   string
+      Name      string
       Email     string
       Password  string
 }
@@ -19,10 +21,3 @@ func InitModel() {
   _ = err
 }
 
-//add a new user in the DB
-func Registration(email string, password string) {
-  user := new(User)
-  user.Email = email
-  user.Password = password
-  engine.Insert(user)
-}
