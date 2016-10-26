@@ -21,5 +21,9 @@ WORKDIR /go/src/project
 
 RUN git clone https://github.com/ndrouin/nlpf-tp1.git 
 
+#install mariadb
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN apt-get install mariadb-server -y
+RUN service mysql start
 
 EXPOSE 80
