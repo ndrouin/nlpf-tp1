@@ -8,6 +8,8 @@ import (
 )
 
 type User struct {
+      Surname   string
+      Name      string
       Email     string
       Password  string
 }
@@ -22,10 +24,12 @@ func InitModel() {
 }
 
 //add a new user in the DB
-func Registration(email string, password string) {
+func Registration(email string, password string, name string, surname string) {
   user := new(User)
   user.Email = email
   user.Password = crypt(password)
+  user.Name = name
+  user.Surname = surname
   engine.Insert(user)
 }
 
