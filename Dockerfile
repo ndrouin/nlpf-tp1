@@ -22,12 +22,11 @@ WORKDIR /go/src/project
 RUN git clone https://github.com/ndrouin/nlpf-tp1.git 
 
 #install mariadb
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt-get install mariadb-server -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
 RUN service mysql start
 
 #install xorm
-go get github.com/go-xorm/xorm
-go get github.com/go-sql-driver/mysql
+RUN go get github.com/go-xorm/xorm
+RUN go get github.com/go-sql-driver/mysql
 
 EXPOSE 80
