@@ -53,6 +53,9 @@ func registration(ctx *iris.Context) {
   password := ctx.FormValueString("password")
   //call registration function from model
   model.Registration(email, password)
+
+  //return home page
+  ctx.Render("Accueil/accueil_title.html", nil)
 }
 
 
