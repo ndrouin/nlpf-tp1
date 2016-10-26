@@ -14,6 +14,7 @@ func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
   iris.Get("/", accueil)
   iris.Get("/newUser", newUser)
+  iris.Post("/registration", registration)
   iris.Listen(":80")
 }
 
@@ -40,6 +41,34 @@ ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects1":p
 }
 
 func newUser(ctx *iris.Context) {
-  ctx.Render("new_user.html", nil)
+  ctx.Render("newUser.html", nil)
 }
+
+func registration(ctx *iris.Context) {
+  //Get variables from form
+  email := ctx.FormValueString("email")
+  password := ctx.FormValueString("password")
+  //call registration function from model
+  model.Registration(email, password)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
