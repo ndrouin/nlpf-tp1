@@ -3,8 +3,7 @@ package main
 import (
   "github.com/kataras/iris"
   "github.com/kataras/go-template/html"
-  "github.com/go-sql-driver/mysql"
-  "fmt"
+  _"github.com/go-sql-driver/mysql"
   "./model"
   "fmt"
 )
