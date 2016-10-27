@@ -5,6 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+  "fmt"
 )
 
 func main() {
@@ -38,7 +39,7 @@ func connection(ctx *iris.Context) {
 }
 
 func connection(ctx *iris.Context) {
-  ctx.Render("connection.html", nil)
+  ctx.Render("connexion.html", nil)
 }
 
 func registration(ctx *iris.Context) {
@@ -51,7 +52,7 @@ func registration(ctx *iris.Context) {
   model.Registration(email, password, name, surname)
 
   //return home page
-  ctx.Render("connection.html", nil)
+  ctx.Render("connexion.html", nil)
 }
 
 
@@ -64,6 +65,6 @@ func auth(ctx *iris.Context) {
   if result == true {
     ctx.Render("Accueil/accueil_title.html", nil)
   } else {
-    ctx.Render("connection_error.html", nil)
+    ctx.Render("connexion_error.html", nil)
   }
 }
