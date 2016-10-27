@@ -5,7 +5,10 @@
       <div class="panel-heading">                                            
         <h3 class="panel-title">Connexion</h3>                              
       </div>                                                                   
-      <div class="panel-body">                                               
+      <div class="panel-body">                                
+        <div class="alert alert-danger">
+          Connexion refusée
+        </div>        
         <form accept-charset="UTF-8" role="form" method="POST" action="connection">                            
           <fieldset>                                                   
             <div class="form-group">                                         
@@ -14,7 +17,6 @@
             <div class="form-group">                                           
               <input class="form-control" placeholder="Mot De Passe" name="password" type="password" value=""> 
             </div>                                                             
-            <a href="/newUser">S'inscrire ?</a>                
             <input class="btn btn-lg btn-success btn-block" type="submit" value="Se Connecter"> 
           </fieldset>                                                          
         </form>                                                            
