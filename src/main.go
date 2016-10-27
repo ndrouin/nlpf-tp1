@@ -5,6 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+  "fmt"
 )
 
 
@@ -13,8 +14,9 @@ func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
   iris.Get("/", accueil)
   iris.Get("/newUser", newUser)
-  iris.Get("/connexion", connexion)
+  iris.Get("/connection", connection)
   iris.Post("/registration", registration)
+  iris.Post("/connection", auth)
   iris.Listen(":80")
 }
 
@@ -44,7 +46,7 @@ func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
 }
 
-func connexion(ctx *iris.Context) {
+func connection(ctx *iris.Context) {
   ctx.Render("connexion.html", nil)
 }
 
@@ -60,11 +62,22 @@ func registration(ctx *iris.Context) {
   model.Registration(email, password, name, surname)
 
   //return home page
-  ctx.Render("Accueil/accueil_title.html", nil)
+  ctx.Render("connexion.html", nil)
 }
 
 
-
+func auth(ctx *iris.Context) {
+  //Get variables from form
+  email := ctx.FormValueString("email")
+  password := ctx.FormValueString("password")
+  //get result of authentification
+  result := model.Connection(email, password)
+  if result == true {
+    ctx.Render("Accueil/accueil_title.html", nil)
+  } else {
+    ctx.Render("connexion_error.html", nil)
+  }
+}
 
 
 
