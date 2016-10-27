@@ -5,29 +5,37 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+  "fmt"
 )
-
 
 func main() {
   model.InitModel()
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
-  iris.Get("/", accueil)
+  iris.Get("/", home)
   iris.Get("/newUser", newUser)
   iris.Get("/connection", connection)
   iris.Post("/registration", registration)
   iris.Post("/connection", auth)
+  fmt.Println(isAuth)
+  my := iris.Party("/connect").Layout("layouts/layout_connected.html")
+  {
+    if isAuth {
+      my.Get("/", home)
+    }
+  }
   iris.Listen(":80")
 }
 
 
 //Fonction d'affichage de l'écran d'accueil et des projets
-func accueil(ctx *iris.Context) {
+func home(ctx *iris.Context) {
   //la liste de tous les projets 
 
-c := []string{"TEST3", "14/07/2017", "Ceci est la descriptionn de mon projet3", "3 euros"}
+  c := []string{"TEST3", "14/07/2017", "Ceci est la descriptionn de mon projet3", "3 euros"}
 
-ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
-"Money":c[3]})}
+  ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
+  "Money":c[3]})
+}
 
 func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
@@ -59,8 +67,8 @@ func auth(ctx *iris.Context) {
   password := ctx.FormValueString("password")
   //get result of authentification
   result := model.Connection(email, password)
-  if result == true {
-    ctx.Render("Accueil/accueil_title.html", nil)
+  if result {
+    ctx.Redirect("/connect/")
   } else {
     ctx.Render("connection_error.html", nil)
   }
