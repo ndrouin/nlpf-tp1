@@ -37,6 +37,10 @@ func connection(ctx *iris.Context) {
   ctx.Render("connection.html", nil)
 }
 
+func connection(ctx *iris.Context) {
+  ctx.Render("connection.html", nil)
+}
+
 func registration(ctx *iris.Context) {
   //Get variables from form
   email := ctx.FormValueString("email")
