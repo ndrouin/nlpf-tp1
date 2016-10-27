@@ -36,13 +36,8 @@ func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
 }
 
-<<<<<<< HEAD
 func newProject(ctx *iris.Context) {
   ctx.Render("newProject.html", nil)
-=======
-func connection(ctx *iris.Context) {
-  ctx.Render("connection.html", nil)
->>>>>>> fixed bug links
 }
 
 func connection(ctx *iris.Context) {
