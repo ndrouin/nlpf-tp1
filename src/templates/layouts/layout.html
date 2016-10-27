@@ -4,12 +4,29 @@
     <title>Easy websites</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="accueil.css" rel="stylesheet" media="all" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body style="height:1500px">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">CROWFUNDING</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">ACCUEIL</a></li>
+      <li><a href="#">MEILLEURS PROJETS</a></li>
+      <li><a href="#">CREER UN PROJET</a></li>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/newUser"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
+      <li><a href="/connexion"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+    </ul>
+  </div>
+</nav>
+</br></br></br></br>
     {{ yield }}
   </body>
 </html>
