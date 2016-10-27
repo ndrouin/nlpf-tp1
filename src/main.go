@@ -7,36 +7,36 @@ import (
   "./model"
 )
 
-
 func main() {
   model.InitModel()
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
-  iris.Get("/", accueil)
+  iris.Get("/", home)
   iris.Get("/newUser", newUser)
-  iris.Get("/connection", connection)
+  iris.Get("/newProject", newProject)
+  iris.Get("/connexion", connexion)
   iris.Post("/registration", registration)
   iris.Post("/connection", auth)
   iris.Listen(":80")
 }
-
-
-//Fonction d'affichage de l'écran d'accueil et des projets
-func accueil(ctx *iris.Context) {
-  //la liste de tous les projets 
-
+//Display of the home page with all of the projects
+func home(ctx *iris.Context) {
 c := []string{"TEST3", "14/07/2017", "Ceci est la descriptionn de mon projet3", "3 euros"}
 
-ctx.Render("Accueil/accueil_projects.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
+ctx.Render("home.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
 "Money":c[3]})}
 
+//When the user wants to subscribe
 func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
 }
-
-func connection(ctx *iris.Context) {
-  ctx.Render("connection.html", nil)
+//When the user wants to subscribe
+func newProject(ctx *iris.Context) {
+  ctx.Render("newProject.html", nil)
 }
-
+//When the user wants to connect
+func connexion(ctx *iris.Context) {
+  ctx.Render("connexion.html", nil)
+}
 
 
 func registration(ctx *iris.Context) {
@@ -65,4 +65,3 @@ func auth(ctx *iris.Context) {
     ctx.Render("connection_error.html", nil)
   }
 }
-
