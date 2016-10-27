@@ -7,11 +7,13 @@ import (
 )
 //add a new user in the DB
 func Registration(email string, password string, name string, surname string) {
+  //initiate new user
   user := new(User)
   user.Email = email
   user.Password = crypt(password)
   user.Name = name
   user.Surname = surname
+  //insert new project in DB
   engine.Insert(user)
 }
 
