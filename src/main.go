@@ -5,6 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+  "fmt"
 )
 
 func main() {
@@ -67,3 +68,22 @@ func auth(ctx *iris.Context) {
     ctx.Render("connection_error.html", nil)
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> add authentification
