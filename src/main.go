@@ -17,6 +17,7 @@ func main() {
   iris.Get("/connection", connection)
   iris.Post("/registration", registration)
   iris.Post("/connection", auth)
+  iris.Post("/addProject", addProject)
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
       my.Get("/", home)
@@ -54,9 +55,19 @@ func registration(ctx *iris.Context) {
   model.Registration(email, password, name, surname)
 
   //return home page
-  ctx.Render("connection.html", nil)
+  ctx.Redirect("/")
 }
 
+func addProject(ctx *iris.Context) {
+  //Get variables from form
+  name := ctx.FormValueString("project_name")
+  description := ctx.FormValueString("description")
+  author := ctx.FormValueString("author_name")
+  contact := ctx.FormValueString("email")
+  //call AddProject function from model
+  model.AddProject(name, description, author, contact)
+  ctx.MustRender("notification.html", struct{ Text string }{Text: "Nouveau projet cree avec succes"})
+}
 
 func auth(ctx *iris.Context) {
   //Get variables from form
