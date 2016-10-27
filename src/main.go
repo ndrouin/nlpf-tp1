@@ -5,6 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+<<<<<<< HEAD
   _"fmt"
 )
 
