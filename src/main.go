@@ -33,9 +33,6 @@ func newUser(ctx *iris.Context) {
 func newProject(ctx *iris.Context) {
   ctx.Render("newProject.html", nil)
 }
-func connection(ctx *iris.Context) {
-  ctx.Render("connection.html", nil)
-}
 
 func connection(ctx *iris.Context) {
   ctx.Render("connection.html", nil)
