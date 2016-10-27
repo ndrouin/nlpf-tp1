@@ -13,14 +13,14 @@ func main() {
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
   iris.Get("/", home)
   iris.Get("/newUser", newUser)
-  iris.Get("/newProject", newProject)
   iris.Get("/connection", connection)
   iris.Post("/registration", registration)
   iris.Post("/connection", auth)
-  iris.Post("/addProject", addProject)
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
       my.Get("/", home)
+      my.Get("/newProject", newProject)
+      my.Post("/addProject", addProject)
   }
   iris.Listen(":80")
 }
