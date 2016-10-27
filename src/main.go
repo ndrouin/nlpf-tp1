@@ -41,7 +41,7 @@ func newProject(ctx *iris.Context) {
 }
 
 func connection(ctx *iris.Context) {
-  ctx.Render("connection.html", nil)
+  ctx.Render("connexion.html", nil)
 }
 
 func registration(ctx *iris.Context) {
@@ -54,7 +54,7 @@ func registration(ctx *iris.Context) {
   model.Registration(email, password, name, surname)
 
   //return home page
-  ctx.Render("connection.html", nil)
+  ctx.Render("connexion.html", nil)
 }
 
 
@@ -67,6 +67,6 @@ func auth(ctx *iris.Context) {
   if result {
     ctx.Redirect("/connect/")
   } else {
-    ctx.Render("connection_error.html", nil)
+    ctx.Render("connexion_error.html", nil)
   }
 }
