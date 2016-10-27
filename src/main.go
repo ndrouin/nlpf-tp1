@@ -5,6 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
+  "fmt"
 )
 
 func main() {
@@ -31,7 +32,6 @@ func newUser(ctx *iris.Context) {
 }
 func newProject(ctx *iris.Context) {
   ctx.Render("newProject.html", nil)
-}
 
 func connection(ctx *iris.Context) {
   ctx.Render("connection.html", nil)
