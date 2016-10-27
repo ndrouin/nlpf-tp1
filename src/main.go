@@ -5,7 +5,7 @@ import (
   "github.com/kataras/go-template/html"
   _"github.com/go-sql-driver/mysql"
   "./model"
-  "fmt"
+  _"fmt"
 )
 
 func main() {
@@ -17,12 +17,9 @@ func main() {
   iris.Get("/connection", connection)
   iris.Post("/registration", registration)
   iris.Post("/connection", auth)
-  fmt.Println(isAuth)
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
-    if isAuth {
       my.Get("/", home)
-    }
   }
   iris.Listen(":80")
 }
@@ -38,8 +35,10 @@ ctx.Render("home.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], 
 func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)
 }
+
 func newProject(ctx *iris.Context) {
   ctx.Render("newProject.html", nil)
+}
 
 func connection(ctx *iris.Context) {
   ctx.Render("connection.html", nil)
