@@ -6,6 +6,7 @@ import (
   _"github.com/go-sql-driver/mysql"
   "./model"
   _"fmt"
+  "strconv"
 )
 
 func main() {
@@ -21,6 +22,7 @@ func main() {
       my.Get("/", home)
       my.Get("/newProject", newProject)
       my.Post("/addProject", addProject)
+      my.Post("/addCounterpart", addCounterpart)
   }
   iris.Listen(":80")
 }
@@ -65,6 +67,15 @@ func addProject(ctx *iris.Context) {
   //call AddProject function from model
   model.AddProject(name, description, author, contact)
   ctx.MustRender("notification.html", struct{ Text string }{Text: "Nouveau projet cree avec succes"})
+}
+
+func addCounterpart(ctx *iris.Context) {
+  name := ctx.FormValueString("title")
+  value, err := strconv.ParseInt(ctx.FormValueString("value"), 10, 64)
+  description := ctx.FormValueString("description")
+  model.AddCounterpart(name, value, description)
+  _ = err
+  ctx.Render("newProject.html", struct{Add bool}{Add: true})
 }
 
 func auth(ctx *iris.Context) {

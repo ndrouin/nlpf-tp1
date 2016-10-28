@@ -20,7 +20,15 @@ type Project struct {
   Author      string
   Contact     string
   Price       int64
-  Creation        string
+  Creation    string
+}
+
+type Counterpart struct {
+  Id          int64 `xorm:"id pk not null autoincr"`
+  Name        string
+  Value       int64
+  Description string `xorm:"text"`
+  Project     int64
 }
 
 
@@ -31,6 +39,7 @@ func InitModel() {
   engine, err = xorm.NewEngine("mysql", "root:@/easywebsite")
   engine.Sync(new(User))
   engine.Sync(new(Project))
+  engine.Sync(new(Counterpart))
   _ = err
 }
 

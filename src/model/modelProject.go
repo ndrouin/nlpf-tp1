@@ -20,6 +20,15 @@ func AddProject(name string, description string, author string, contact string) 
   engine.Insert(project)
 }
 
+func AddCounterpart(name string, value int64, description string) {
+  counterpart := new(Counterpart)
+  counterpart.Name = name
+  counterpart.Value = value
+  counterpart.Description = description
+  engine.Insert(counterpart)
+}
+
+
 func GetProjectsName() []*Project {
   var projects []*Project
   engine.Find(&projects)

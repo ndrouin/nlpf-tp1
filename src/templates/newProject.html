@@ -1,80 +1,59 @@
-<div class="col-sm-6"/>   
-<div class="container">                                                          
-       <div class="row vertical-offset-100">                                        
-         <div class="col-md-4 col-md-offset-4">                                     
-           <div class="panel panel-default" style="width:450px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19)">                                        
-             <div class="panel-heading">                                            
-               <h3 class="panel-title">Mon projet</h3>                              
-          </div>                                                                   
-            <div class="panel-body">                                               
-              <form accept-charset="UTF-8" role="form" method="POST" action="addProject">                            
-                      <fieldset> 
-                  <div class="form-group">
-                    <input type="text" maxlength="255" class="form-control" id="project_name" name="project_name" placehoer="Nom du projet" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="comment">Description:</label>
-                    <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description" required>
-                    </textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="text"  maxlength="255" class="form-control" id="author_name" name="author_name" placeholder="Auteur" required>
-                  </div>
-                  <div class="form-group">
-                    <input type="email" maxlength="255"  class="form-control" id="email" name="email" placeholder="Contact" required>
-                  </div>
-                <input class="btn btn-lg btn-success btn-block" type="submit" value="Enregister"> 
-              </fieldset>                                                          
-                </form>                                                            
-            </div>
-        </div>
-             <div class="panel-heading" >                                            
-               <h3 class="panel-title">Contreparties</h3>                              
-          </div>                                                                   
-            <div class="panel-body">                                               
-              <form accept-charset="UTF-8" role="form" method="POST" action="registration">                            
-                      <fieldset> 
-                  <div class="form-group">
-                    <input type="text" maxlength="255"  class="form-control" id="title" name="title" placeholder="Titre" required>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" maxlength="255"  class="form-control" id="value" name="value" placeholder="Valeur (en Euros / mois)" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="comment">Description:</label>
-                    <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description" required>
-                    </textarea>
-                  </div>
-                <input class="btn btn-lg btn-success btn-block" type="submit" value="Ajouter une contrepartie"> 
-              </fieldset>                                                          
-                </form>                                                            
-            </div>
-    <!-- Contreparties part -->            
-<div style="text-align:left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); mar    gin:auto">                                                                                                                   
-     <div style="background-color: #4CAF50; color:white; padding:10px; font-size:40px">
-       <b>                                                                          
-         <h1> le titre: {{.Contrepartie}} </h1>                                                   
-       </b>                                                                         
-     </div>                                                                         
-     <div style="padding:10px; width:800px">                                        
-       <p>                                                                          
-         <b>                                                                        
-          description :{{.Descriptions}}                                                        
-          </br></br>                                                               
-          la valeur :{{.Money}}                                                               
-        </b>                                                                       
-      </p>
-
-      <button type="button" class="btn btn-success">Supprimer</button>
-            
-    </div>                                                                         
-  </div>                                                                           
-  </br></br>
-</div>            
-      </div>                                                                       
-    </div>                                                                         
-  </div>
+{{if .Add}}
+<div class="alert alert-success">
+  Contrepartie ajout&eacute;e
 </div>
+{{end}}
+</div>
+<div class="col-md-4" style="margin: 5px;">                                     
+<div class="panel-heading">                                            
+  <h3 class="alert alert-info">Mon projet</h3>                              
+</div>                                                                   
+<div class="panel-body">                                               
+  <form accept-charset="UTF-8" role="form" method="POST" action="addProject">                            
+    <fieldset> 
+      <div class="form-group">
+        <input type="text" maxlength="255" class="form-control" id="project_name" name="project_name" placeholder="Nom du projet" required>
+      </div>
+      <div class="form-group">
+        <label for="comment">Description:</label>
+        <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description" required>
+        </textarea>
+      </div>
+      <div class="form-group">
+        <input type="text"  maxlength="255" class="form-control" id="author_name" name="author_name" placeholder="Auteur" required>
+      </div>
+      <div class="form-group">
+        <input type="email" maxlength="255"  class="form-control" id="email" name="email" placeholder="Contact" required>
+      </div>
+      <input class="btn btn-lg btn-success btn-block" type="submit" value="Enregister"> 
+    </fieldset>                                                          
+  </form>                                                            
+</div>
+</div>
+</div>
+<div class="col-md-4" style="margin: 5px;">                                     
+  <div class="panel-heading" >                                            
+    <h3 class="alert alert-info">Contreparties</h3>                              
+  </div>                                                                   
+  <div class="panel-body">                                               
+    <form accept-charset="UTF-8" role="form" method="POST" action="addCounterpart"> 
+      <fieldset> 
+        <div class="form-group">
+          <input type="text" maxlength="255"  class="form-control" id="title" name="title" placeholder="Titre" required>
+        </div>
+        <div class="form-group">
+          <input type="text" maxlength="255"  class="form-control" id="value" name="value" placeholder="Valeur (en Euros / mois)" required>
+        </div>
+
+        <div class="form-group">
+          <label for="comment">Description:</label>
+          <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description" required>
+          </textarea>
+        </div>
+        <input class="btn btn-lg btn-success btn-block" type="submit" value="Ajouter une contrepartie"> 
+      </fieldset>                                                          
+    </form>                                                            
+  </div>
+</div>                                                                       
 
 
