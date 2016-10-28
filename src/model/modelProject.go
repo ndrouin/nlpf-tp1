@@ -44,8 +44,15 @@ func HasOrphanCounterpart() bool {
   return has
 }
 
+func GetCounterparts() []*Counterpart {
+  var counterparts []*Counterpart
+  engine.Having("project=0").Find(&counterparts)
+  return counterparts
+}
 
-
+func DelOrphanCounterparts() {
+  engine.Query("DELETE FROM counterpart WHERE project=0")
+}
 
 
 

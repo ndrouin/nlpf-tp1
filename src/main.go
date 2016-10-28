@@ -29,6 +29,7 @@ func main() {
 
 //Display of the home page with all of the projects
 func home(ctx *iris.Context) {
+  model.DelOrphanCounterparts()
   projects := model.GetProjects()
   ctx.Render("home.html", struct { Projects []*model.Project}{Projects: projects})
 }
@@ -78,8 +79,13 @@ func addCounterpart(ctx *iris.Context) {
   type Vars struct {
     Add                   bool
     HasOrphanCounterpart  bool
+    Counterparts          []*model.Counterpart
   }
-  vars := Vars{Add: true, HasOrphanCounterpart: model.HasOrphanCounterpart()}
+  vars := Vars{
+    Add:                  true,
+    HasOrphanCounterpart: model.HasOrphanCounterpart(),
+    Counterparts:         model.GetCounterparts(),
+  }
   ctx.Render("newProject.html", vars)
 }
 

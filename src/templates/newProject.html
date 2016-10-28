@@ -55,7 +55,11 @@
         <input class="btn btn-lg btn-success btn-block" type="submit" value="Ajouter une contrepartie"> 
       </fieldset>                                                          
     </form>   
-    <div class="alert alert-info" style="margin-top: 20px;"><h1>Liste des contreparties<h1></div>
+    <div class="alert alert-info" style="margin-top: 20px;"><h1>Liste des contreparties</h1></div>
+    {{ range .Counterparts }}
+    <div class="alert alert-warning" style="margin-top: 20px;"><h2>{{.Name}} - {{.Value}}&euro;&#47;mois</h2></div>
+    <div><p style="word-wrap: break-word;">{{.Description}}</p></div>
+    {{end}}
   </div>
 </div>                                                                       
 
