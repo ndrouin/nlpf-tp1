@@ -6,7 +6,7 @@
   <div class="alert alert-info"><h1>Projet #{{.Id}} - {{.Name}}</h1></div>
   <div><strong>Gain :</strong> {{.Price}}&euro;&#47;mois</div>
   <div><strong>Cr&eacute;&eacute; le :</strong> {{.Creation}}</div>
-  <div style="margin-top: 5px;">{{.Description}}</div>
+  <div style="margin-top: 5px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical;">{{.Description}}</div>
   {{if $.Connect}}
   <form accept-charset="UTF-8" role="form" method="POST" action="participation">
     <input type="hidden" value={{.Id}} name="participation" id="participation">                
