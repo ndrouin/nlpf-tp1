@@ -29,10 +29,14 @@
         <div class="form-group">
           <input type="email" maxlength="255"  class="form-control" id="email" name="email" placeholder="Contact" required>
         </div>
+        {{if .Delete}}
+        <input class="btn btn-lg btn-success btn-block disabled" type="submit" value="Enregister"> 
+        {{else}}
         {{if .HasOrphanCounterpart}}
         <input class="btn btn-lg btn-success btn-block" type="submit" value="Enregister"> 
         {{else}}
         <input class="btn btn-lg btn-success btn-block disabled" type="submit" value="Enregister"> 
+        {{end}}
         {{end}}
       </fieldset>                                                          
     </form>                                                            
