@@ -4,8 +4,14 @@
 {{range .Projects}}
 <div class="col-md-4" style="border: 1px solid grey; width: 500px; margin: 5px;">
   <div class="alert alert-info"><h1>Projet #{{.Id}} - {{.Name}}</h1></div>
-  <div>Gain : {{.Price}}</div>
-  <div>Cr&eacute;&eacute; le : {{.Creation}}</div>
+  <div><strong>Gain :</strong> {{.Price}}&euro;&#47;mois</div>
+  <div><strong>Cr&eacute;&eacute; le :</strong> {{.Creation}}</div>
   <div style="margin-top: 5px;">{{.Description}}</div>
+  {{if $.Connect}}
+  <form accept-charset="UTF-8" role="form" method="POST" action="participation">
+    <input type="hidden" value={{.Id}} name="participation" id="participation">                
+    <input class="btn btn-lg btn-success btn-block" type="submit" style="width: 150px; margin: 10px;" value="Participer !"> 
+  </form>
+  {{end}}
 </div>
 {{end}}

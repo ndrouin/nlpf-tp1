@@ -1,0 +1,16 @@
+{{range .Project}}
+<div class="col-md-4" style="border: 1px solid grey; width: 500px; margin: 5px;">
+  <div class="alert alert-info"><h1>Projet #{{.Id}} - {{.Name}}</h1></div>
+  <div><strong>Gain :</strong> {{.Price}}&euro;&#47;mois</div>
+  <div><strong>Cr&eacute;&eacute; le :</strong> {{.Creation}}</div>
+  <div style="margin-top: 5px;">{{.Description}}</div>
+  <div style="margin-top: 5px;"><strong>Par:</strong> {{.Author}}</div>
+  <div style="margin-top: 5px;"><strong>Contact:</strong> {{.Contact}}</div>
+</div>
+{{end}}
+{{ range .Counterparts }}
+<div class="col-md-4 col-md-offset-4" style="border: 1px solid grey; width: 500px; margin: 5px;">
+  <div class="alert alert-warning" style="margin-top: 20px;"><h2>{{.Name}} - {{.Value}}&euro;&#47;mois</h2></div>
+  <div><p style="word-wrap: break-word;">{{.Description}}</p></div>
+</div>
+{{end}}

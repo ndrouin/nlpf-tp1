@@ -63,6 +63,21 @@ func SetProjectCounterparts() {
   engine.Query(sql)
 }
 
+func GetProject(id int64) []*Project{
+  var project []*Project
+  engine.Having("id="+strconv.FormatInt(id, 10)).Find(&project)
+  return project
+}
+
+func GetProjectCounterparts(id int64) []*Counterpart{
+  var counterparts []*Counterpart
+  engine.Having("project="+strconv.FormatInt(id, 10)).Find(&counterparts)
+  return counterparts
+}
+
+
+
+
 
 
 

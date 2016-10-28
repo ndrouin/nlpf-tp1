@@ -19,30 +19,37 @@ func main() {
   iris.Post("/connection", auth)
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
-    my.Get("/", home)
+    my.Get("/", homeConnect)
     my.Get("/newProject", newProject)
     my.Post("/addProject", addProject)
     my.Post("/addCounterpart", addCounterpart)
+    my.Post("/participation", participation)
   }
   iris.Listen(":80")
 }
 
-func notificationHome(add bool) interface{} {
+func interfaceHome(add bool, connect bool) interface{} {
   model.DelOrphanCounterparts()
   projects := model.GetProjects()
   type Vars struct {
     Projects  []*model.Project
     Add       bool
+    Connect   bool
   }
   vars := Vars {
     Projects: projects,
     Add:      add,
+    Connect:   connect,
   }
   return vars
 }
 //Display of the home page with all of the projects
 func home(ctx *iris.Context) {
-  ctx.Render("home.html", notificationHome(false))
+  ctx.Render("home.html", interfaceHome(false, false))
+}
+
+func homeConnect(ctx *iris.Context) {
+  ctx.Render("home.html", interfaceHome(false, true))
 }
 //When the user wants to subscribe
 func newUser(ctx *iris.Context) {
@@ -79,7 +86,7 @@ func addProject(ctx *iris.Context) {
   //call AddProject function from model
   model.AddProject(name, description, author, contact)
   model.SetProjectCounterparts()
-  ctx.Render("home.html", notificationHome(true))
+  ctx.Render("home.html", interfaceHome(true, true))
 }
 
 func addCounterpart(ctx *iris.Context) {
@@ -112,4 +119,19 @@ func auth(ctx *iris.Context) {
   } else {
     ctx.Render("connection_error.html", nil)
   }
+}
+
+func participation(ctx *iris.Context) {
+  id := ctx.FormValueString("participation")
+  i, err := strconv.ParseInt(id, 10, 64)
+  _ = err
+  type Vars struct {
+    Project       []*model.Project
+    Counterparts []*model.Counterpart
+  }
+  vars := Vars {
+    Project:        model.GetProject(i),
+    Counterparts:  model.GetProjectCounterparts(i),
+  }
+  ctx.Render("participation.html", vars)
 }
