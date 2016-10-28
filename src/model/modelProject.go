@@ -87,7 +87,7 @@ func AddSelection(id int64) {
 
 }
 
-func GetProjectCounterpart(id int64) []*Counterpart{
+func GetCounterpart(id int64) []*Counterpart{
   var counterpart []*Counterpart
   engine.Having("id="+strconv.FormatInt(id, 10)).Find(&counterpart)
   return counterpart
