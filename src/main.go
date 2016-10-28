@@ -27,11 +27,9 @@ func main() {
 
 //Display of the home page with all of the projects
 func home(ctx *iris.Context) {
-c := []string{"TEST3", "14/07/2017", "Ceci est la descriptionn de mon projet3", "3 euros"}
-
-ctx.Render("home.html", map[string]interface{}{"Projects": c[0], "Dates": c[1], "Descriptions": c[2],
-"Money":c[3]})}
-
+  projects := model.GetProjectsName()
+  ctx.Render("home.html", struct { Projects []*model.Project}{Projects: projects})
+}
 //When the user wants to subscribe
 func newUser(ctx *iris.Context) {
   ctx.Render("newUser.html", nil)

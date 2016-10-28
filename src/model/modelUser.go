@@ -18,7 +18,10 @@ func Registration(email string, password string, name string, surname string) {
 }
 
 func Connection(email string, password string) bool {
-  user := User{"","",email,crypt(password)}
+  user := &User{
+    Email: email,
+    Password: crypt(password),
+  }
   has, err := engine.Get(user)
   _ = err
   return has

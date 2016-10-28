@@ -6,17 +6,21 @@ import (
 )
 
 type User struct {
+  Id        int64 `xorm:"id pk not null autoincr"`
   Surname   string
   Name      string
-  Email     string
+  Email     string `xorm: "unique"`
   Password  string
 }
 
 type Project struct {
+  Id          int64 `xorm:"id pk not null autoincr"`
   Name        string
   Description string `xorm:"text"`
   Author      string
   Contact     string
+  Price       int64
+  Creation        string
 }
 
 
