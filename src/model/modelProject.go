@@ -29,8 +29,26 @@ func AddCounterpart(name string, value int64, description string) {
 }
 
 
-func GetProjectsName() []*Project {
+func GetProjects() []*Project {
   var projects []*Project
   engine.Find(&projects)
   return projects
 }
+
+func HasOrphanCounterpart() bool {
+  counterpart := &Counterpart{
+    Project: 0,
+  }
+  has, err := engine.Get(counterpart)
+  _ = err
+  return has
+}
+
+
+
+
+
+
+
+
+

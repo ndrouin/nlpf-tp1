@@ -19,17 +19,17 @@ func main() {
   iris.Post("/connection", auth)
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
-      my.Get("/", home)
-      my.Get("/newProject", newProject)
-      my.Post("/addProject", addProject)
-      my.Post("/addCounterpart", addCounterpart)
+    my.Get("/", home)
+    my.Get("/newProject", newProject)
+    my.Post("/addProject", addProject)
+    my.Post("/addCounterpart", addCounterpart)
   }
   iris.Listen(":80")
 }
 
 //Display of the home page with all of the projects
 func home(ctx *iris.Context) {
-  projects := model.GetProjectsName()
+  projects := model.GetProjects()
   ctx.Render("home.html", struct { Projects []*model.Project}{Projects: projects})
 }
 //When the user wants to subscribe
@@ -75,7 +75,12 @@ func addCounterpart(ctx *iris.Context) {
   description := ctx.FormValueString("description")
   model.AddCounterpart(name, value, description)
   _ = err
-  ctx.Render("newProject.html", struct{Add bool}{Add: true})
+  type Vars struct {
+    Add                   bool
+    HasOrphanCounterpart  bool
+  }
+  vars := Vars{Add: true, HasOrphanCounterpart: model.HasOrphanCounterpart()}
+  ctx.Render("newProject.html", vars)
 }
 
 func auth(ctx *iris.Context) {
