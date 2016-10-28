@@ -7,6 +7,7 @@ import (
   "./model"
   _"fmt"
   "strconv"
+  "strings"
 )
 
 func main() {
@@ -51,7 +52,9 @@ func home(ctx *iris.Context) {
 }
 
 func homeConnect(ctx *iris.Context) {
-  ctx.Render("home.html", interfaceHome(false, true))
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    ctx.Render("home.html", interfaceHome(false, true))
+  }
 }
 //When the user wants to subscribe
 func newUser(ctx *iris.Context) {
@@ -59,7 +62,9 @@ func newUser(ctx *iris.Context) {
 }
 
 func newProject(ctx *iris.Context) {
-  ctx.Render("newProject.html", nil)
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    ctx.Render("newProject.html", nil)
+  }
 }
 
 func connection(ctx *iris.Context) {
@@ -80,34 +85,38 @@ func registration(ctx *iris.Context) {
 }
 
 func addProject(ctx *iris.Context) {
-  //Get variables from form
-  name := ctx.FormValueString("project_name")
-  description := ctx.FormValueString("description")
-  author := ctx.FormValueString("author_name")
-  contact := ctx.FormValueString("email")
-  //call AddProject function from model
-  model.AddProject(name, description, author, contact)
-  model.SetProjectCounterparts()
-  ctx.Render("home.html", interfaceHome(true, true))
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    //Get variables from form
+    name := ctx.FormValueString("project_name")
+    description := ctx.FormValueString("description")
+    author := ctx.FormValueString("author_name")
+    contact := ctx.FormValueString("email")
+    //call AddProject function from model
+    model.AddProject(name, description, author, contact)
+    model.SetProjectCounterparts()
+    ctx.Render("home.html", interfaceHome(true, true))
+  }
 }
 
 func addCounterpart(ctx *iris.Context) {
-  name := ctx.FormValueString("title")
-  value, err := strconv.ParseInt(ctx.FormValueString("value"), 10, 64)
-  description := ctx.FormValueString("description")
-  model.AddCounterpart(name, value, description)
-  _ = err
-  type Vars struct {
-    Add                   bool
-    HasOrphanCounterpart  bool
-    Counterparts          []*model.Counterpart
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    name := ctx.FormValueString("title")
+    value, err := strconv.ParseInt(ctx.FormValueString("value"), 10, 64)
+    description := ctx.FormValueString("description")
+    model.AddCounterpart(name, value, description)
+    _ = err
+    type Vars struct {
+      Add                   bool
+      HasOrphanCounterpart  bool
+      Counterparts          []*model.Counterpart
+    }
+    vars := Vars{
+      Add:                  true,
+      HasOrphanCounterpart: model.HasOrphanCounterpart(),
+      Counterparts:         model.GetCounterparts(),
+    }
+    ctx.Render("newProject.html", vars)
   }
-  vars := Vars{
-    Add:                  true,
-    HasOrphanCounterpart: model.HasOrphanCounterpart(),
-    Counterparts:         model.GetCounterparts(),
-  }
-  ctx.Render("newProject.html", vars)
 }
 
 func auth(ctx *iris.Context) {
@@ -117,6 +126,7 @@ func auth(ctx *iris.Context) {
   //get result of authentification
   result := model.Connection(email, password)
   if result {
+    ctx.Session().Set("isConnected", "true")
     ctx.Redirect("/connect/")
   } else {
     ctx.Render("connection_error.html", nil)
@@ -136,12 +146,13 @@ func varsProject(id int64) interface{} {
 }
 
 func participation(ctx *iris.Context) {
-  id := ctx.FormValueString("participation")
-  i, err := strconv.ParseInt(id, 10, 64)
-  _ = err
-  ctx.Render("participation.html", varsProject(i))
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    id := ctx.FormValueString("participation")
+    i, err := strconv.ParseInt(id, 10, 64)
+    _ = err
+    ctx.Render("participation.html", varsProject(i))
+  }
 }
-
 func confirmation(ctx *iris.Context) {
   id := ctx.FormValueString("selection")
   i, err := strconv.ParseInt(id, 10, 64)
@@ -158,14 +169,16 @@ func confirmation(ctx *iris.Context) {
   ctx.Render("confirmation.html", vars)
 }
 
-func addSelection(ctx *iris.Context) {
-  id := ctx.FormValueString("selection")
-  i, err := strconv.ParseInt(id, 10, 64)
-  _ = err
-  model.AddSelection(i)
-  ctx.Render("participation.html", varsProject(model.GetCounterpart(i)[0].Project))
-}
 
+func addSelection(ctx *iris.Context) {
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    id := ctx.FormValueString("selection")
+    i, err := strconv.ParseInt(id, 10, 64)
+    _ = err
+    model.AddSelection(i)
+    ctx.Render("participation.html", varsProject(model.GetCounterpart(i)[0].Project))
+  }
+}
 
 
 

@@ -5,6 +5,7 @@ import (
   "github.com/go-xorm/xorm"
 )
 
+
 type User struct {
   Id        int64 `xorm:"id pk not null autoincr"`
   Surname   string
@@ -42,4 +43,3 @@ func InitModel() {
   engine.Sync(new(Counterpart))
   _ = err
 }
-
