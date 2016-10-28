@@ -99,4 +99,11 @@ func BestProjects() []*Project {
   return projects
 }
 
+func DeleteCounterpart(id int64) {
+  sql := "DELETE FROM counterpart WHERE id=" + strconv.FormatInt(id, 10)
+  engine.Query(sql)
+}
+
+
+
 

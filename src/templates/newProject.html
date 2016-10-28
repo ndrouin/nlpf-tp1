@@ -3,6 +3,11 @@
   Contrepartie ajout&eacute;e
 </div>
 {{end}}
+{{if .Delete}}
+<div class="alert alert-danger">
+  Contrepartie supprim&eacute;e
+</div>
+{{end}}
 <div class="col-md-4" style="margin: 5px;">                                     
   <div class="panel-heading">                                            
     <h3 class="alert alert-info">Mon projet</h3>                              
@@ -59,6 +64,10 @@
     {{ range .Counterparts }}
     <div class="alert alert-warning" style="margin-top: 20px;"><h2>{{.Name}} - {{.Value}}&euro;&#47;mois</h2></div>
     <div><p style="word-wrap: break-word;">{{.Description}}</p></div>
+    <form accept-charset="UTF-8" role="form" method="POST" action="deleteCounterpart"> 
+      <input type="hidden" id="id" name="id" value="{{.Id}}">
+      <input class="btn btn-danger btn-block" style="width: 250px;" type="submit" value="Supprimer"> 
+    </form>
     {{end}}
   </div>
 </div>                                                                       

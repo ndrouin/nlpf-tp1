@@ -29,6 +29,7 @@ func main() {
     my.Post("/participation", participation)
     my.Post("/selection", confirmation)
     my.Post("/gift", addSelection)
+    my.Post("/deleteCounterpart", deleteCounterpart)
   }
   iris.Listen(":80")
 }
@@ -134,11 +135,13 @@ func addCounterpart(ctx *iris.Context) {
     _ = err
     type Vars struct {
       Add                   bool
+      Delete                bool
       HasOrphanCounterpart  bool
       Counterparts          []*model.Counterpart
     }
     vars := Vars{
       Add:                  true,
+      Delete:               false,
       HasOrphanCounterpart: model.HasOrphanCounterpart(),
       Counterparts:         model.GetCounterparts(),
     }
@@ -207,7 +210,27 @@ func addSelection(ctx *iris.Context) {
   }
 }
 
-
+func deleteCounterpart(ctx *iris.Context) {
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    id := ctx.FormValueString("id")
+    i, err := strconv.ParseInt(id, 10, 64)
+    _ = err
+    model.DeleteCounterpart(i)
+    type Vars struct {
+      Add                   bool
+      Delete                bool
+      HasOrphanCounterpart  bool
+      Counterparts          []*model.Counterpart
+    }
+    vars := Vars{
+      Add:                  false,
+      Delete:               true,
+      HasOrphanCounterpart: model.HasOrphanCounterpart(),
+      Counterparts:         model.GetCounterparts(),
+    }
+    ctx.Render("newProject.html", vars)
+  }
+}
 
 
 
