@@ -24,6 +24,7 @@ func main() {
     my.Get("/", homeConnect)
     my.Get("/best", bestConnect)
     my.Get("/newProject", newProject)
+    my.Get("/deconnection", deconnection)
     my.Post("/addProject", addProject)
     my.Post("/addCounterpart", addCounterpart)
     my.Post("/participation", participation)
@@ -62,6 +63,13 @@ func interfaceBest(connect bool) interface{} {
     Connect:   connect,
   }
   return vars
+}
+
+func deconnection(ctx *iris.Context) {
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    ctx.Session().Set("isConnected", "false")
+    ctx.Redirect("/")
+  }
 }
 
 //Display of the home page with all of the projects
