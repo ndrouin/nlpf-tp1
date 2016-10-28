@@ -24,6 +24,7 @@ func main() {
     my.Post("/addProject", addProject)
     my.Post("/addCounterpart", addCounterpart)
     my.Post("/participation", participation)
+    my.Post("/selection", addSelection)
   }
   iris.Listen(":80")
 }
@@ -121,17 +122,43 @@ func auth(ctx *iris.Context) {
   }
 }
 
+func varsProject(id int64) interface{} {
+  type Vars struct {
+    Project       []*model.Project
+    Counterparts  []*model.Counterpart
+  }
+  vars := Vars {
+    Project:       model.GetProject(id),
+    Counterparts:  model.GetProjectCounterparts(id),
+  }
+  return vars
+}
+
 func participation(ctx *iris.Context) {
   id := ctx.FormValueString("participation")
   i, err := strconv.ParseInt(id, 10, 64)
   _ = err
-  type Vars struct {
-    Project       []*model.Project
-    Counterparts []*model.Counterpart
-  }
-  vars := Vars {
-    Project:        model.GetProject(i),
-    Counterparts:  model.GetProjectCounterparts(i),
-  }
-  ctx.Render("participation.html", vars)
+  ctx.Render("participation.html", varsProject(i))
 }
+
+func addSelection(ctx *iris.Context) {
+  id := ctx.FormValueString("selection")
+  i, err := strconv.ParseInt(id, 10, 64)
+  _ = err
+  model.AddSelection(i)
+  ctx.Render("participation.html", varsProject(model.GetProjectCounterpart(i)[0].Project))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

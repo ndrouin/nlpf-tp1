@@ -75,8 +75,23 @@ func GetProjectCounterparts(id int64) []*Counterpart{
   return counterparts
 }
 
+func AddSelection(id int64) {
+  var counterpart []*Counterpart
+  engine.Having("id="+strconv.FormatInt(id, 10)).Find(&counterpart)
+  value := counterpart[0].Value
+  var project []*Project
+  engine.Having("id="+strconv.FormatInt(counterpart[0].Project, 10)).Find(&project)
+  price := project[0].Price + value
+  sql := "UPDATE project SET price=" + strconv.FormatInt(price, 10) + " WHERE id=" +strconv.FormatInt(counterpart[0].Project, 10)
+  engine.Query(sql)
 
+}
 
+func GetProjectCounterpart(id int64) []*Counterpart{
+  var counterpart []*Counterpart
+  engine.Having("id="+strconv.FormatInt(id, 10)).Find(&counterpart)
+  return counterpart
+}
 
 
 

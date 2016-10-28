@@ -12,5 +12,9 @@
 <div class="col-md-4 col-md-offset-4" style="border: 1px solid grey; width: 500px; margin: 5px;">
   <div class="alert alert-warning" style="margin-top: 20px;"><h2>{{.Name}} - {{.Value}}&euro;&#47;mois</h2></div>
   <div><p style="word-wrap: break-word;">{{.Description}}</p></div>
+  <form accept-charset="UTF-8" role="form" method="POST" action="selection">
+    <input type="hidden" value={{.Id}} name="selection" id="selection">                
+    <input class="btn btn-lg btn-success btn-block" type="submit" style="width: 150px; margin: 10px;" value="Sélectionner"> 
+  </form>
 </div>
 {{end}}
