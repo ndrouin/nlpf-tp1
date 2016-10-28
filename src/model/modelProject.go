@@ -54,7 +54,14 @@ func DelOrphanCounterparts() {
   engine.Query("DELETE FROM counterpart WHERE project=0")
 }
 
-
+func SetProjectCounterparts() {
+  var projects []*Project
+  engine.Desc("id").Find(&projects)
+  _ = err
+  index := projects[0].Id
+  sql := "UPDATE counterpart SET project=" + strconv.FormatInt(index, 10) + " WHERE project=0"
+  engine.Query(sql)
+}
 
 
 

@@ -27,11 +27,22 @@ func main() {
   iris.Listen(":80")
 }
 
-//Display of the home page with all of the projects
-func home(ctx *iris.Context) {
+func notificationHome(add bool) interface{} {
   model.DelOrphanCounterparts()
   projects := model.GetProjects()
-  ctx.Render("home.html", struct { Projects []*model.Project}{Projects: projects})
+  type Vars struct {
+    Projects  []*model.Project
+    Add       bool
+  }
+  vars := Vars {
+    Projects: projects,
+    Add:      add,
+  }
+  return vars
+}
+//Display of the home page with all of the projects
+func home(ctx *iris.Context) {
+  ctx.Render("home.html", notificationHome(false))
 }
 //When the user wants to subscribe
 func newUser(ctx *iris.Context) {
@@ -67,7 +78,8 @@ func addProject(ctx *iris.Context) {
   contact := ctx.FormValueString("email")
   //call AddProject function from model
   model.AddProject(name, description, author, contact)
-  ctx.MustRender("notification.html", struct{ Text string }{Text: "Nouveau projet cree avec succes"})
+  model.SetProjectCounterparts()
+  ctx.Render("home.html", notificationHome(true))
 }
 
 func addCounterpart(ctx *iris.Context) {
