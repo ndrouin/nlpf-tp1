@@ -31,7 +31,7 @@ func AddCounterpart(name string, value int64, description string) {
 
 func GetProjects() []*Project {
   var projects []*Project
-  engine.Find(&projects)
+  engine.Desc("id").Find(&projects)
   return projects
 }
 
@@ -93,6 +93,10 @@ func GetCounterpart(id int64) []*Counterpart{
   return counterpart
 }
 
-
+func BestProjects() []*Project {
+  var projects []*Project
+  engine.Desc("price").Find(&projects)
+  return projects
+}
 
 

@@ -14,6 +14,7 @@ func main() {
   model.InitModel()
   iris.UseTemplate(html.New(html.Config{Layout: "layouts/layout.html"}))
   iris.Get("/", home)
+  iris.Get("/best", best)
   iris.Get("/newUser", newUser)
   iris.Get("/connection", connection)
   iris.Post("/registration", registration)
@@ -21,6 +22,7 @@ func main() {
   my := iris.Party("/connect").Layout("layouts/layout_connected.html")
   {
     my.Get("/", homeConnect)
+    my.Get("/best", bestConnect)
     my.Get("/newProject", newProject)
     my.Post("/addProject", addProject)
     my.Post("/addCounterpart", addCounterpart)
@@ -46,9 +48,34 @@ func interfaceHome(add bool, connect bool) interface{} {
   }
   return vars
 }
+
+func interfaceBest(connect bool) interface{} {
+  model.DelOrphanCounterparts()
+  projects := model.BestProjects()
+  type Vars struct {
+    Projects  []*model.Project
+    Connect   bool
+  }
+  vars := Vars {
+    Projects: projects,
+    Connect:   connect,
+  }
+  return vars
+}
+
 //Display of the home page with all of the projects
 func home(ctx *iris.Context) {
   ctx.Render("home.html", interfaceHome(false, false))
+}
+
+func best(ctx *iris.Context) {
+  ctx.Render("best.html", interfaceBest(false))
+}
+
+func bestConnect(ctx *iris.Context) {
+  if strings.Compare(ctx.Session().GetString("isConnected"), "true") == 0  {
+    ctx.Render("best.html", interfaceBest(true))
+  }
 }
 
 func homeConnect(ctx *iris.Context) {
