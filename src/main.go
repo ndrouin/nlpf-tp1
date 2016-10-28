@@ -105,11 +105,15 @@ func registration(ctx *iris.Context) {
   password := ctx.FormValueString("password")
   name := ctx.FormValueString("name")
   surname := ctx.FormValueString("surname")
-  //call registration function from model
-  model.Registration(email, password, name, surname)
+  if model.GetUser(email) == false {
+    //call registration function from model
+    model.Registration(email, password, name, surname)
 
-  //return home page
-  ctx.Redirect("/")
+    //return home page
+    ctx.Redirect("/")
+  } else {
+    ctx.Render("newUser.html", struct{Used bool}{Used: true})
+  }
 }
 
 func addProject(ctx *iris.Context) {

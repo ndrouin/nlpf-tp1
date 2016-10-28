@@ -31,3 +31,12 @@ func crypt(str string) string {
   h:= sha256.Sum256([]byte(str))
   return hex.EncodeToString(h[:])
 }
+
+func GetUser(email string) bool {
+  user := &User{
+    Email: email,
+  }
+  has, err := engine.Get(user)
+  _ = err
+  return has
+}
