@@ -5,7 +5,7 @@ build_image: ndrouin/nlpf-tp1:latest
 
 integrations:  
     hub:
-      - integrationName: docker-hub-integration #-- Must be exactly same as the name you have given to your Docker hub integration in Shippable. 
+      - integrationName: docker_hub_integration #-- Must be exactly same as the name you have given to your Docker hub integration in Shippable. 
         type: docker 
         branches:
           only:
