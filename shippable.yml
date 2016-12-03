@@ -1,2 +1,12 @@
 # Language setting
 language: go
+
+build_image: ndrouin/nlpf-tp1:latest
+
+integrations:  
+    hub:
+      - integrationName: docker-hub-integration #-- Must be exactly same as the name you have given to your Docker hub integration in Shippable. 
+        type: docker 
+        branches:
+          only:
+            - master
