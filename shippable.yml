@@ -3,3 +3,7 @@ build:
     image_name: ndrouin/nlpf-tp1           #required
     image_tag: latest                     #required
     pull: true                              #required, false if image already built or pulled in pre_ci
+  ci:
+    -  docker pull ndrouin/nlpf-tp1:latest
+  pre_ci:
+    -  docker build -t ndrouin/nlpf-tp1:latest .
